@@ -31,10 +31,10 @@ for i = 1:N
 %     cellfun(@(x,y) x+y, batch_grad_W, grad_W, 'UniformOutput', false);
 %     cellfun(@(x,y) x+y, batch_grad_b, grad_b, 'UniformOutput', false);
 
-    if mod(i, 100) == 0
-        waitbar(i/N);
+%     if mod(i, 100) == 0
+%         waitbar(i/N);
 %         plot_weight;
-    end
+%     end
 end
 
 % cellfun(@(x) x/N, batch_grad_W, 'UniformOutput', false);

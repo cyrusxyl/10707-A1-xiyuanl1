@@ -21,7 +21,7 @@ train_acc = zeros(epoch+1,1);
 train_loss = zeros(epoch+1,1)+inf;
 valid_acc = zeros(epoch+1,1);
 valid_loss = zeros(epoch+1,1)+inf;
-
+current_best = inf;
 %% train
 for j = 1:epoch
     [n_W, n_b] = Train(W, b, train_data, train_labels, eta);
@@ -29,9 +29,10 @@ for j = 1:epoch
     [train_acc(j+1), train_loss(j+1)] = ComputeAccuracyAndLoss(n_W, n_b, train_data, train_labels);
     [valid_acc(j+1), valid_loss(j+1)] = ComputeAccuracyAndLoss(n_W, n_b, valid_data, valid_labels);
     
-    if valid_loss(j+1)>valid_loss(j)
+    if valid_loss(j+1)>current_best
         eta = eta * 0.5
     else
+        current_best = valid_loss(j+1)
         W = n_W;
         b = n_b;
     end
