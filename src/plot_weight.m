@@ -9,5 +9,7 @@ for i = 1:N
     subplot(ax,ax,i);
     w = squeeze(weights(i,:,:));
     imagesc(w);
+    colormap gray
     axis image
+    axis off
 end

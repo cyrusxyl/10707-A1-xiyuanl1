@@ -15,7 +15,8 @@ for i = 1:L-1
     n_in = layers(i);
     n_out = layers(i+1);
     
-    W{1,i} = (2/sqrt(n_in)).*rand(n_out, n_in) - (1/sqrt(n_in));
+    bound = sqrt(6/(n_in+n_out));
+    W{1,i} = 2*bound.*rand(n_out, n_in) - bound;
     b{1,i} = zeros(n_out, 1);
 end
 

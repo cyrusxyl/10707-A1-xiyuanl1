@@ -1,4 +1,4 @@
-function [W, b] = Train(W, b, train_data, train_label, learning_rate)
+function [W, b, delta_W, delta_b] = Train(W, b, delta_W, delta_b, train_data, train_label, learning_rate, momentum)
 % [W, b] = Train(W, b, train_data, train_label, learning_rate) trains the network
 % for one epoch on the input training data 'train_data' and 'train_label'. This
 % function should returned the updated network parameters 'W' and 'b' after
@@ -26,20 +26,7 @@ for i = 1:N
     [output, act_h, act_a] = Forward(W, b, X);
     [grad_W, grad_b] = Backward(W, b, X, Y, act_h, act_a);
     
-    [W, b] = UpdateParameters(W, b, grad_W, grad_b, learning_rate);
-    
-%     cellfun(@(x,y) x+y, batch_grad_W, grad_W, 'UniformOutput', false);
-%     cellfun(@(x,y) x+y, batch_grad_b, grad_b, 'UniformOutput', false);
-
-%     if mod(i, 100) == 0
-%         waitbar(i/N);
-%         plot_weight;
-%     end
+    [W, b, delta_W, delta_b] = UpdateParameters(W, b, grad_W, grad_b, learning_rate, delta_W, delta_b, momentum);
 end
-
-% cellfun(@(x) x/N, batch_grad_W, 'UniformOutput', false);
-% cellfun(@(x) x/N, batch_grad_b, 'UniformOutput', false);
-
-% [W, b] = UpdateParameters(W, b, batch_grad_W, batch_grad_b, learning_rate);
 
 end
