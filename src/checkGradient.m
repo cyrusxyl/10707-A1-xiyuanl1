@@ -22,7 +22,7 @@ for l = 1:length(W)
       [~, loss1] = ComputeAccuracyAndLoss(W1, b, X, Y);
       [~, loss2] = ComputeAccuracyAndLoss(W2, b, X, Y);
 
-      g = (loss2-loss1)/(2*epsilon);
+      g = (loss1-loss2)/(2*epsilon);
       error = g-grad_W{l}(m,n);
 
       fprintf('g=%f, g_est=%f, error=%f\n',g,grad_W{l}(m,n),error);

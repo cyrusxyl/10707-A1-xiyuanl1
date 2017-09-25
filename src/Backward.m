@@ -1,4 +1,4 @@
-function [grad_W, grad_b] = Backward(W, b, X, Y, act_h, act_a)
+function [grad_W, grad_b] = Backward(W, b, X, Y, act_h, act_a, dactiv_fun)
 % [grad_W, grad_b] = Backward(W, b, X, Y, act_h, act_a) computes the gradient
 % updates to the deep network parameters and returns them in cell arrays
 % 'grad_W' and 'grad_b'. This function takes as input:
@@ -13,12 +13,12 @@ grad_W = cell(1,L-1);
 grad_b = cell(1,L-1);
 
 % delta 4
-grad_b{1,L-1} = Y'-act_h{1,L};
+grad_b{1,L-1} = act_h{1,L}-Y';
 grad_W{1,L-1} = grad_b{1,L-1}*act_h{1,L-1}';
 
 % delta 3, delta 2
 for i = L-2:-1:1
-    grad_b{1,i} = (W{1,i+1}'*grad_b{1,i+1}).*(act_h{1,i+1}.*(1-act_h{1,i+1}));
+    grad_b{1,i} = (W{1,i+1}'*grad_b{1,i+1}).*dactiv_fun(act_h{1,i+1});%(W{1,i+1}'*grad_b{1,i+1}).*(act_h{1,i+1}.*(1-act_h{1,i+1}));
     grad_W{1,i} = grad_b{1,i}*act_h{1,i}';
 end
     
